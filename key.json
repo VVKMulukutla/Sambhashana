@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "college-explora",
+  "private_key_id": "9e6fe6790328f8eef1ddb28174037aaa520ce419",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzKfI/SudZHA+D\nEpYMynvOCGrkbx26r8gVlnU1oBNoGGlnRVACgWlJ4xiz47nXGT1VqOOrdvP4u683\nxkT5tT8HZEaNwlEkTmWdpwzmLc529lp1iuwEZjZyAGkGRksU5ZqGLszjep2AsMbL\njHfuEhUyOdLaqXMOkCsNyI27u9dkjIUywashyr/M1WGklt94jdU5FPWblr9mGlOa\nky0LBFJJfLmfsFXawP/uor3pq3WpiaxH6N+ABdO3zxeFruNEp2SBsEc84pbP+77J\nws/c8Sm4VV48wLcz64uUgFpkVz0hUrXgBZ6fQpi8FVZdZYQhUQXJHWulsbD86gGh\ngPfIc54ZAgMBAAECggEAAefaOt2dWII2+7DXgJMpHh/SoT45qE9v1vjxeLdMlYty\n7ZAGwewQoQz7FDNsed2mcceOL7f1cDRw20Hu4GK9j6LQ/veC55pfiX3UzOBOWqS+\nrBLk9UawDBDgjRpIzf6uNitVGb38uGPI+DJ04RxMoOris67gjtZY5Y3iog1QBR1W\nnYhyIfPNKqg6pOxP3AeLpXbcqfhWKuyW0TsGAqdd/LZh7ZNll3rZN8MPESjEGgIu\nUyaVTnyuuYQ4UtnVysYwSbDcgOkWp6kxVR29dmy758Qmw37R1OxW3H+0n3Idz48G\ngd0oGiUx/Gvl0RSjOtEnh7sLYQL9K1CY/1qNKYQTfQKBgQDoPkP1oWyNv7eiGUwJ\na6zak4JXXtPrGS6CtxZ1kfEb7j9wIVU146uIoUy/qhV2ih9zNu1o4Ycgx8TtWuHI\n2fo83L8AfXBvOQvHviTNOgZmRSUbwJzlxHSEsgRVf3BlAciQhUB3eALTgO8sKO6t\nFasphgCUF5mSJrL4sp3+ufo+9QKBgQDFfbISg0ytVpKisKzwjNZTXQIfHCr7/VGD\n5QuT/9ZphvVwb9KCdmrO8O77kSUYdB0xggFDXNqdr9KlqF7/71m8qtr8lkfd7TwM\nWsMqNSlB54XgvnVJlpMrbHuLxTNCYEvILSQZHiR0TXZR/2oGh0x+E1ftmYb+EjEq\nrSHEDookFQKBgGcfHrX2k2jtc/B6IxUbxojXbsy0woxlhg1sloBl6RVp2KlFY7yl\n9wiX9qg0MYuNESHrhcdIPOQFUB/EdvTkNQTJT9Y73KzGO8DZYSXvWeAXW77S69fq\nP4KcOOhtyc5P2GqzgEiL9VVMruaA1lnsgS/S3Hblc789h8J+LUFp+v/xAoGASyF6\ncRiKPxdESag04n5xut0TRYqNv7erHyYvtWoKw7KYBOJFj2RFVdzKzeF130utH3x5\nxoq4kGynEmZvXaZM2T2WeakiRgdOZNTSkmgO/gd6IvnR3ODvtAFdLtsimQnRSqIB\nrZyN+cDOVnt4dmtaakwpkzZo6Jc7JSUgR1nQq9ECgYAYLcsdbgvGuCprMHEPZXj+\nHXQnkchWuR1WtCjcXkQDVwfiqvEr4Ivm34x/ALj6m5QksT10sBNudMTB4cV4mNSS\nayAXCO7mSJCnVeez0s2F/oj8k3OSklXqDoegoDZagClQMYwyQB2vM5uwv2ZaPPYg\nwnLDtIQNBeJxJfqgPgIzKw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-4m3qc@college-explora.iam.gserviceaccount.com",
+  "client_id": "108956765116849221722",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-4m3qc%40college-explora.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

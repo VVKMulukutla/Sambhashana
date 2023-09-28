@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Chat Room</title>
+    <style>
+       body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar {
+            background-color: #5754ba;
+            color: white;
+            padding: 10px 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .chat-interface {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 60px);
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .input-area button {
+            background-color: #5754ba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .input-area button:hover {
+            background-color: #6C5B7B;
+        }
+
+        .message {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            margin: 5px 0;
+        }
+
+        .message .user {
+            font-weight: bold;
+        }
+
+        .message .timestamp {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .users-list {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .users-list h4 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar" id="roomName">Chat Room</div>
+    <div class="chat-interface">
+        <div class="messages" id="messageArea"></div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button onclick="sendMessage()"><i class="material-icons">send</i></button>
+        </div>
+        <div class="users-list">
+            <h4>Users in this room:</h4>
+            <ul id="userList">
+                <!-- Example static user list -->
+                <li>John</li>
+                <li>Alice</li>
+                <li>Bob</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        async function loadPreviousMessages(roomCode) {
+    const response = await fetch(`http://localhost:3000/getMessages/${roomCode}`);
+    const messages = await response.json();
+
+    const messageArea = document.getElementById('messageArea');
+    messages.forEach(msg => {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        messageDiv.innerHTML = `
+            <span class="user">${msg.sender}:</span>
+            <span class="content">${msg.message}</span>
+            <span class="timestamp">${new Date(msg.timestamp.seconds * 1000).toLocaleTimeString()}</span>
+        `;
+        messageArea.appendChild(messageDiv);
+    });
+}
+
+        async function sendMessage() {
+    const messageInput = document.getElementById('messageInput');
+    const message = messageInput.value.trim();
+    if (message !== '') {
+        const sender = "YourName"; 
+        const roomCode = "123456"; 
+
+        
+        await fetch('http://localhost:3000/sendMessage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ roomCode, sender, message })
+        });
+
+        
+        const messageArea = document.getElementById('messageArea');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        messageDiv.innerHTML = `
+            <span class="user">${sender}:</span>
+            <span class="content">${message}</span>
+            <span class="timestamp">${new Date().toLocaleTimeString()}</span>
+        `;
+        messageArea.appendChild(messageDiv);
+        messageInput.value = '';
+    }
+}
+
+        document.getElementById('messageInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                event.preventDefault(); 
+                sendMessage();
+            }
+        });
+    </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+}
+img{
+    height: 60px;
+    width: 30vw;
+}
+label p{
+    color: white;
+    text-align: center;
+    border-spacing: 0;
+}
+iframe{
+    display: inline-block;  
+    width: 100%;
+}
+.material-icons{
+    margin-left: 28px;
+    padding: 15px;
+    border-spacing: 0px;
+}
+.menu-col{
+    height: 100vh;
+    width: 10vw;
+    background-color: navy;
+    display: inline-block;
+}
+
+/* head.html */
+/* starts here */
+.message-text{
+    /* border: 2px solid black; */
+    display: inline-block;
+    padding-top: 210px;
+    padding-left: 160px;   
+    font-size: 22px;
+    text-decoration: solid;
+    font-family: "Audiowide";
+}
+.message-icon i{
+    
+    display: inline-block;
+    padding-top: 290px;
+    font-size: 40px;
+}
+
+

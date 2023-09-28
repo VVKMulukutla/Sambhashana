@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg,  #6C5B7B, #5754ba);
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-chat {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            background: linear-gradient(45deg, #6C5B7B, #5754ba);
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 16px;
+            outline: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .material-icons {
+            margin-right: 8px;
+        }
+        .room-details {
+            background: #f4f4f4;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .room-name {
+            font-weight: bold;
+        }
+
+        .room-code {
+            background: #e9e9e9;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .delete-icon {
+            cursor: pointer;
+        }
+    </style>
+    <title>The ChattyChatt</title>
+</head>
+<body>
+    <div class="main-chat">
+        <div id="roomContainer"></div>
+        <button id="createRoom" onclick="createRoom()"><i class="material-icons">add</i>Create Room</button>
+        <button id="joinRoom" onclick="joinRoom()"><i class="material-icons">group</i>Join Room</button>
+    </div>
+    <script>
+        async function createRoom() {
+            const roomName = prompt("Enter the name of the room:");
+            if (roomName) {
+                try {
+                    const response = await fetch('http://localhost:3000/createRoom', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ roomName: roomName })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        const roomContainer = document.getElementById('roomContainer');
+                        const roomElement = document.createElement('div');
+                        roomElement.className = 'room-details';
+                        roomElement.innerHTML = `
+                            <span class="room-name">${roomName}</span>
+                            <span class="room-code">${data.roomCode}</span>
+                            <i class="material-icons delete-icon" onclick="deleteRoom(this)">delete</i>
+                        `;
+                        roomContainer.prepend(roomElement); 
+                    } else {
+                        alert('Failed to create room: ' + data.message);
+                    }
+                } catch (error) {
+                    console.error('Error creating room:', error);
+                }
+            }
+        }
+
+        async function deleteRoom(element) {
+    const roomCode = element.previousElementSibling.textContent;
+    const confirmation = prompt("Type 'confirm' to delete the room.");
+    if (confirmation === "confirm") {
+        try {
+            const response = await fetch('http://localhost:3000/deleteRoom', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ roomCode: roomCode })
+            });
+            const data = await response.json();
+            if (data.success) {
+                element.parentElement.remove();
+            } else {
+                alert('Failed to delete room: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error deleting room:', error);
+        }
+    }
+}
+async function joinRoom() {
+    const roomCode = prompt("Enter the 6-digit unique passcode:");
+    if (roomCode && roomCode.length === 6) {
+        try {
+            const response = await fetch('http://localhost:3000/validateRoom', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ roomCode: roomCode })
+            });
+            const data = await response.json();
+            if (data.success) {
+                
+                window.location.href = "http://localhost:4000/";
+            } else {
+                alert('Invalid passcode or room not found.');
+            }
+        } catch (error) {
+            console.error('Error joining room:', error);
+        }
+    } else {
+        alert('Please enter a valid 6-digit passcode.');
+    }
+}
+
+
+    </script>
+</body>
+
+</html>
+

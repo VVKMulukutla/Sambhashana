@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Existing Chatrooms</title>
+    <style>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    overflow-x: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    animation: fadeIn 1s;
+}
+
+.chatroom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 2px dashed #e9ecef;
+    transition: all 0.3s;
+    transform: scale(1);
+}
+
+.chatroom:last-child {
+    border-bottom: none;
+}
+
+.chatroom:hover {
+    background-color: #f1f3f5;
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chatroom-info {
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 1.5s;
+}
+
+.chatroom-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #343a40;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chatroom-code, .chatroom-timestamp {
+    font-size: 14px;
+    color: #868e96;
+    transition: color 0.3s;
+}
+
+.chatroom:hover .chatroom-code, .chatroom:hover .chatroom-timestamp {
+    color: #495057;
+}
+
+.delete-button {
+    background-color: #ffffff; 
+    color: #e03131; 
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    animation: fadeIn 2s;
+}
+
+.delete-button:hover {
+    background-color: #e03131; 
+    color: #ffffff; 
+    transform: scale(1.1); 
+}
+
+.material-icons {
+    margin-right: 5px;
+    transition: transform 0.3s;
+}
+    </style>
+</head>
+<body>
+    <div id="chatroomsContainer"></div>
+
+    <script>
+        async function loadChatrooms() {
+            const response = await fetch('http://localhost:3000/getChatrooms');
+            const chatrooms = await response.json();
+            const container = document.getElementById('chatroomsContainer');
+            chatrooms.forEach(chatroom => {
+                const chatroomDiv = document.createElement('div');
+                chatroomDiv.className = 'chatroom';
+                chatroomDiv.innerHTML = `
+                    <div class="info">
+                        <span><strong>Name:</strong> ${chatroom.name}</span>
+                        <span><strong>Code:</strong> ${chatroom.code}</span>
+                        <span><strong>Created At:</strong> ${chatroom.createdAt}</span>
+                    </div>
+                    <span class="material-icons delete-btn" onclick="deleteChatroom('${chatroom.id}')">delete</span>
+                `;
+                container.appendChild(chatroomDiv);
+            });
+        }
+
+        async function deleteChatroom(id) {
+    const response = await fetch(`http://localhost:3000/deleteChatroom/${id}`, {
+        method: 'DELETE'
+    });
+    const result = await response.json();
+    if (result.success) {
+        const container = document.getElementById('chatroomsContainer');
+        container.innerHTML = '';  
+        loadChatrooms();  
+    } else {
+        alert('Failed to delete chatroom.');
+    }
+}
+    loadChatrooms();
+    </script>
+</body>
+</html>

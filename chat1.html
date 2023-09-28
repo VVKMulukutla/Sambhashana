@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        nav {
+            height: 9vh;
+            background-color: navy;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .messages {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .msg-section {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #ddd;
+        }
+        #chat-msg {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+        #chat-msg:hover, #chat-msg:focus {
+            background-color: #f9f9f9;
+        }
+        button {
+            background-color: navy;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: #e9e9e9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h2 style="color: #fff;">Chat Room</h2>
+    </nav>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div class="msg-section">
+            <input type="text" name="chat-msg" id="chat-msg" placeholder="Type your Message...">
+            <button id="icon-change" onclick="sendMessage()"><i class="material-icons">send</i></button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('chat-msg').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault(); 
+            sendMessage();
+            }
+        });
+
+function sendMessage() {
+    const input = document.getElementById('chat-msg');
+    const messages = document.getElementById('messages');
+    if (input.value.trim() !== '') {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.textContent = input.value;
+        messages.appendChild(messageDiv);
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+    }
+}
+
+        function sendMessage() {
+            const input = document.getElementById('chat-msg');
+            const messages = document.getElementById('messages');
+            if (input.value.trim() !== '') {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.textContent = input.value;
+                messages.appendChild(messageDiv);
+                input.value = '';
+                messages.scrollTop = messages.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
